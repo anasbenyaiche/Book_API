@@ -10,9 +10,9 @@
     "package": "rm -f publish/my-app.tgz && mkdir -p publish && cd dist && tar -czvf ../publish/my-app.tgz ."
   },
   "publishConfig": {
-    "registry": "http://10.0.0.247:8081/repository/npm-book-repo/"
+    "registry": "http://nexus:8081/repository/npm-book-repo/"
   },
-  "author": "Ranish Shrestha",
+  "author": "Anas ben yaiche",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
@@ -32,8 +32,8 @@
       "**/?(*.)+(spec|test).[tj]s?(x)"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "server.js"
+      "controllers/**/*.js",
+      "routes/**/*.js"
     ],
     "coverageReporters": [
       "json",
