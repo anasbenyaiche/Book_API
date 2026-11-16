@@ -24,7 +24,7 @@ pipeline {
             }
         }
 
-        stage('Analyse SonarQube') {
+        stage('Analyse SonarQube + Quality Gate') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner \
@@ -32,15 +32,9 @@ pipeline {
                         -Dsonar.projectName=Book_API \
                         -Dsonar.sources=controllers,routes \
                         -Dsonar.tests=test \
-                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'''
-                }
-            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                        -Dsonar.qualitygate.wait=true \
+                        -Dsonar.qualitygate.timeout=120'''
                 }
             }
         }
