@@ -8,6 +8,12 @@ pipeline {
 
 
     stages {
+        
+        stage('Tests') {
+            steps {
+                sh 'npm install'
+            }
+        }
         stage('Install (via Nexus)') {
             steps {
                 withCredentials([file(credentialsId: 'npm-nexus-creds', variable: 'NPMRC')]) {
