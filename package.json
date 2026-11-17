@@ -3,6 +3,12 @@
   "version": "1.0.1",
   "description": "",
   "main": "server.js",
+  "files": [
+    "server.js",
+    "config",
+    "controllers",
+    "routes"
+  ],
   "scripts": {
     "start": "node server.js",
     "build": "webpack --config webpack.config.js",
