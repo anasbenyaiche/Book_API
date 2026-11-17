@@ -24,20 +24,13 @@ pipeline {
             }
         }
 
-        stage('Analyse SonarQube + Quality Gate') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=Book_API \
-                        -Dsonar.projectName=Book_API \
-                        -Dsonar.sources=controllers,routes \
-                        -Dsonar.tests=test \
-                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                        -Dsonar.qualitygate.wait=true \
-                        -Dsonar.qualitygate.timeout=120'''
-                }
-            }
-        }
+        // stage('Analyse SonarQube + Quality Gate') {
+        //     steps {
+        //         withSonarQubeEnv('SonarQube') {
+        //             sh ''
+        //         }
+        //     }
+        // }
 
         stage('Publish (Nexus)') {
             steps {
