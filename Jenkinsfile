@@ -5,9 +5,7 @@ pipeline {
         nodejs 'NodeJS'
     }
 
-    environment {
-        SCANNER_HOME = tool 'SonarQubeScanner'
-    }
+
 
     stages {
         stage('Install (via Nexus)') {
