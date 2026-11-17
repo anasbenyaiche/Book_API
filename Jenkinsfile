@@ -5,12 +5,11 @@ pipeline {
         nodejs 'NodeJS'
     }
 
-   environment {
+    environment {
         SCANNER_HOME = tool 'sonarqube'
     }
 
     stages {
-        
         stage('Install checks') {
             steps {
                 sh 'npm install'
@@ -19,7 +18,7 @@ pipeline {
         stage('Install (via Nexus)') {
             steps {
                 withCredentials([file(credentialsId: 'npm-nexus-creds', variable: 'NPMRC')]) {
-                   sh 'npm ci --userconfig "$NPMRC"'
+                    sh 'npm ci --userconfig "$NPMRC"'
                 }
             }
         }
@@ -30,9 +29,9 @@ pipeline {
             }
         }
 
-    stage('Analyse SonarQube + Quality Gate') {
+        stage('Analyse SonarQube + Quality Gate') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=Book_API \
                         -Dsonar.projectName=Book_API \
@@ -49,7 +48,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'npm-nexus-creds', variable: 'NPMRC')]) {
                     sh 'npm version 1.0.$BUILD_NUMBER --no-git-tag-version'
-                 sh 'npm publish --userconfig "$NPMRC"'
+                    sh 'npm publish --userconfig "$NPMRC"'
                 }
             }
         }
